@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app>
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-    <div>App Name Here</div>
+    <div>App Name Here --</div>
     <v-divider></v-divider>
   </v-app-bar>
 </template>
