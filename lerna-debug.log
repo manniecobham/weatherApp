@@ -1,0 +1,15 @@
+0 silly argv {
+0 silly argv   _: [ 'init' ],
+0 silly argv   lernaVersion: '6.4.0',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js'
+0 silly argv }
+1 notice cli v6.4.0
+2 verbose rootPath C:\Users\manni\Documents\Work\Dev\Full Stack\weatherApp
+3 verbose init skipping validations
+4 verbose init skipping preparations
+5 info Initializing Git repository
+6 error Error: Command failed with exit code 1: git init
+6 error 'git' is not recognized as an internal or external command,
+6 error operable program or batch file.
+6 error     at makeError (C:\Users\manni\Documents\Work\Dev\Full Stack\weatherApp\node_modules\execa\lib\error.js:60:11)
+6 error     at handlePromise (C:\Users\manni\Documents\Work\Dev\Full Stack\weatherApp\node_modules\execa\index.js:118:26)

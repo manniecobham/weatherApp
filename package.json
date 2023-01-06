@@ -2,9 +2,8 @@
   "name": "weatherapp",
   "version": "1.0.0",
   "description": "",
-  "packages": [
-    "weatherapp-common",
-    "weatherapp-frontend"
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/manniecobham/weatherApp/issues"
   },
-  "homepage": "https://github.com/manniecobham/weatherApp#readme"
+  "homepage": "https://github.com/manniecobham/weatherApp#readme",
+  "dependencies": {
+    "lerna": "^6.4.0"
+  }
 }
