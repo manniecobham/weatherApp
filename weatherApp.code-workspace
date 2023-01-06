@@ -4,5 +4,16 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"eslint.enable": true,
+		"eslint.codeActionsOnSave.mode": "problems",
+		"eslint.format.enable": false,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		},
+		"editor.fontSize": 14,
+		"debug.console.fontSize": 12,
+		"markdown.preview.fontSize": 14,
+		"window.zoomLevel": -1,
+	}
 }

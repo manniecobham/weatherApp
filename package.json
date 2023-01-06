@@ -1,0 +1,22 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "",
+  "packages": [
+    "weatherapp-common",
+    "weatherapp-frontend"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manniecobham/weatherApp.git"
+  },
+  "author": "Emmanuel Cobham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manniecobham/weatherApp/issues"
+  },
+  "homepage": "https://github.com/manniecobham/weatherApp#readme"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "weatherapp-common",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc -w",
+    "watch": "nodemon dist",
+    "start": "concurrently npm:start:*"
+},
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20"
+  }
+}
