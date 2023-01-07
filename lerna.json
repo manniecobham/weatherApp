@@ -1,0 +1,6 @@
+{
+    "useWorkspaces": true,
+    "$schema": {
+        "package": "*"
+    }
+}

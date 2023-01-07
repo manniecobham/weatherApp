@@ -4,7 +4,7 @@
   "scripts": {
     "build": "tsc -w",
     "watch": "nodemon dist",
-    "start": "concurrently npm:start:*"
+    "start": "concurrently npm:watch:*"
 },
   "devDependencies": {
     "typescript": "^4.9.4"
