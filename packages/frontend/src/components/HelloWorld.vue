@@ -4,31 +4,31 @@
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-text>
-              <v-row no-gutters dense>
-                <v-col no-gutters class="align-center" dense>
-                  <div>
-                    <v-icon x-large>mdi-cloud</v-icon>
-                    <span>31&deg;C</span>
-                  </div>
-                  <v-divider vertical />
-                </v-col>
-                <v-col no-gutters>
-                  <v-row dense>
-                    <template v-for="(item, index) in todayValues">
-                      <v-col :key="index" cols="6" md="2" no-gutters>
-                        <v-col no-gutters>
-                          <span>{{ item.label }}</span>
-                          <v-row no-gutters>
-                            <span>{{ item.value }}{{ item.unit }}</span>
-                          </v-row>
-                        </v-col>
+            <!-- <v-list-item-text> -->
+            <v-row no-gutters dense>
+              <v-col no-gutters class="align-center" dense>
+                <div>
+                  <v-icon x-large>mdi-cloud</v-icon>
+                  <span>31&deg;C</span>
+                </div>
+                <v-divider vertical />
+              </v-col>
+              <v-col no-gutters>
+                <v-row dense>
+                  <template v-for="(item, index) in todayValues">
+                    <v-col :key="index" cols="6" md="2" no-gutters>
+                      <v-col no-gutters>
+                        <span>{{ item.label }}</span>
+                        <v-row no-gutters>
+                          <span>{{ item.value }}{{ item.unit }}</span>
+                        </v-row>
                       </v-col>
-                    </template>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-list-item-text>
+                    </v-col>
+                  </template>
+                </v-row>
+              </v-col>
+            </v-row>
+            <!-- </v-list-item-text> -->
           </v-list-item-content>
         </v-list-item>
         <v-divider />
@@ -81,19 +81,20 @@
         <v-divider></v-divider>
       </v-list>
     </v-card>
+    <div>{{ myData }}</div>
   </v-container>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import moment from "moment";
-// import {} from "weatherapp-common/src/weathertype";
+import WeatherService from "../service/WeatherService";
 
 export default Vue.extend({
   name: "HelloWorld",
 
   data: () => ({
-    date: new Date(),
+    myData: "",
     todayValues: [
       { label: "High", value: "20", unit: "°C" },
       { label: "FL High", value: "20", unit: "°C" },
@@ -114,6 +115,20 @@ export default Vue.extend({
     getDays() {
       return moment.weekdays();
     },
+  },
+  mounted() {
+    WeatherService.getCurrentWeatherDetail(
+      13.419998,
+      52.52,
+      Intl.DateTimeFormat().resolvedOptions().timeZone
+    ).then((res) => {
+      // (this.myData = res)(console.log(res));
+      return {
+        // current: parseCurrentWeather(data),
+        // daily: parseDailyWeather(data),
+        // hourly: parseHourlyWeather(data),
+      };
+    });
   },
 });
 </script>
