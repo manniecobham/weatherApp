@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/manniecobham/weatherApp#readme",
   "dependencies": {
-    "lerna": "^6.4.0"
+    "lerna": "^6.4.0",
+    "routing-controllers": "^0.10.0"
   }
 }

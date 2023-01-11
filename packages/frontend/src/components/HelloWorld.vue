@@ -89,7 +89,11 @@
 import Vue from "vue";
 import moment from "moment";
 import WeatherService from "../service/WeatherService";
-
+import {
+  parseCurrentWeather,
+  parseDailyWeather,
+  parseHourlyWeather,
+} from "../helper/weatherhelpers";
 export default Vue.extend({
   name: "HelloWorld",
 
@@ -110,6 +114,11 @@ export default Vue.extend({
       { label: "Wind", value: "26", unit: "mph" },
       { label: "Precip", value: "31", unit: "in" },
     ],
+    currentUser: {
+      longitude: 7.4653,
+      latitude: 51.5136,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    },
   }),
   computed: {
     getDays() {
@@ -117,18 +126,9 @@ export default Vue.extend({
     },
   },
   mounted() {
-    WeatherService.getCurrentWeatherDetail(
-      13.419998,
-      52.52,
-      Intl.DateTimeFormat().resolvedOptions().timeZone
-    ).then((res) => {
-      // (this.myData = res)(console.log(res));
-      return {
-        // current: parseCurrentWeather(data),
-        // daily: parseDailyWeather(data),
-        // hourly: parseHourlyWeather(data),
-      };
-    });
+    WeatherService.getCurrentWeatherDetail(this.currentUser).then((res) =>
+      console.log(res)
+    );
   },
 });
 </script>

@@ -2,9 +2,9 @@
   "name": "weatherapp-common",
   "version": "1.0.0",
   "scripts": {
-    "build": "tsc -w",
-    "watch": "nodemon dist",
-    "start": "concurrently npm:watch:*"
+    "watch": "tsc -w",
+    "start": "nodemon dist",
+    "build": "concurrently npm:watch:*"
 },
   "devDependencies": {
     "typescript": "^4.9.4"
