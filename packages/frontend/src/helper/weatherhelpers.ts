@@ -1,23 +1,22 @@
 import moment from "moment";
-import { CurrentWeather } from "weatherapp-common/src/currentWeatherType";
-import { ForecastWeather } from "weatherapp-common/src/forecastWeatherType";
+import { CurrentWeather } from "weatherapp-common/src/model/currentWeatherType";
+import { ForecastWeather } from "weatherapp-common/src/model/forecastWeatherType";
+import { WeatherApiResponse } from "weatherapp-common/src/model/apiResponseType";
 
 export function parseCurrentWeather({
   current_weather,
   daily,
-}): CurrentWeather {
+}: WeatherApiResponse): CurrentWeather {
   const {
     temperature,
-    windspeed: windSpeed,
-    weathercode: weatherCode,
-  } = current_weather;
-  const {
-    temperature_2m_max: [maxTemp],
-    temperature_2m_min: [minTemp],
-    apparent_temperature_max: [maxFeelsLike],
-    apparent_temperature_min: [minFeelsLike],
-    precipitation_sum: [precip],
-  } = daily;
+    windSpeed: windSpeed,
+    weatherCode: weatherCode,
+  } = current_weather as CurrentWeather;
+  const maxTemp = daily?.apparent_temperature_max?.[0];
+  const minTemp = daily?.temperature_2m_min?.[0];
+  const maxFeelsLike = daily?.apparent_temperature_max?.[0];
+  const minFeelsLike = daily?.apparent_temperature_min?.[0];
+  const precip = daily?.precipitation_sum?.[0];
   return {
     temperature,
     highTemp: maxTemp,
@@ -30,28 +29,31 @@ export function parseCurrentWeather({
   };
 }
 
-export function parseDailyWeather({ daily }: unknown) {
-  return daily.time.map((time, index) => {
+export function parseDailyWeather({ daily }: WeatherApiResponse) {
+  return daily?.time?.map((time, index) => {
     return {
       time,
-      weatherCode: daily.weathercode[index],
-      maxTemp: daily.temperature_2m_max[index],
-      minTemp: daily.temperature_2m_min[index],
+      weatherCode: daily?.weathercode?.[index],
+      maxTemp: daily?.temperature_2m_max?.[index],
+      minTemp: daily?.temperature_2m_min?.[index],
     };
   });
 }
 
-export function parseHourlyWeather({ hourly, current_weather }) {
-  return hourly.time
-    .map((time, index) => {
+export function parseHourlyWeather({
+  hourly,
+  current_weather,
+}: WeatherApiResponse) {
+  // eslint-disable-next-line prettier/prettier
+  return hourly?.time?.map((time, index) => {
       return {
         time,
-        weatherCode: hourly.weathercode[index],
-        temperature: hourly.temperature_2m[index],
-        feelsLike: hourly.apparent_temperature[index],
-        windSpeed: hourly.windspeed_10m[index],
-        precip: hourly.precipitation[index],
+        weatherCode: hourly?.weathercode?.[index],
+        temperature: hourly?.temperature_2m?.[index],
+        feelsLike: hourly?.apparent_temperature?.[index],
+        windSpeed: hourly?.windspeed_10m?.[index],
+        precip: hourly?.precipitation?.[index],
       };
     })
-    .filter(({ time }) => moment(time) >= moment(current_weather.time));
+    .filter(({ time }) => moment(time) >= moment(current_weather?.time));
 }

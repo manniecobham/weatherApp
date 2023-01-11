@@ -2,10 +2,10 @@
 
 export class CurrentWeather {
     time?: string;
-    weatherCode!: number;
+    weatherCode?: number;
     windDirection?: number;
-    windSpeed!: number;
-    temperature!: number;
+    windSpeed?: number;
+    temperature?: number;
     highTemp?: number;
     lowTemp?: number;
     highFeelsLike?: number;

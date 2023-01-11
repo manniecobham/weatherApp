@@ -64,17 +64,7 @@
           <v-list-item-content>
             <v-row no-gutters class="pa-2">
               <!-- Remember to turn to table -->
-              <v-col
-                no-gutters
-                dense
-                v-for="(item, index) in futureValues"
-                :key="index"
-              >
-                <span>
-                  <v-row dense>{{ item.label }}</v-row>
-                  <v-row dense>{{ item.value }}</v-row>
-                </span>
-              </v-col>
+              <v-data-table :items="items" :headers="headers"></v-data-table>
             </v-row>
           </v-list-item-content>
         </v-list-item>
@@ -89,11 +79,13 @@
 import Vue from "vue";
 import moment from "moment";
 import WeatherService from "../service/WeatherService";
+import { MyHourlyWeather } from "weatherapp-common/src/model/myResponseType";
 import {
   parseCurrentWeather,
   parseDailyWeather,
   parseHourlyWeather,
 } from "../helper/weatherhelpers";
+
 export default Vue.extend({
   name: "HelloWorld",
 
@@ -119,15 +111,22 @@ export default Vue.extend({
       latitude: 51.5136,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     },
+    items: [] as MyHourlyWeather[] | undefined,
   }),
   computed: {
     getDays() {
       return moment.weekdays();
     },
+    headers() {
+      return [{ text: "feelsLiike", value: "feelsLike" }];
+    },
   },
   mounted() {
-    WeatherService.getCurrentWeatherDetail(this.currentUser).then((res) =>
-      console.log(res)
+    // WeatherService.getCurrentWeatherDetail(this.currentUser).then((res) =>
+    //   console.log(res)
+    // );
+    WeatherService.getCurrentWeatherDetail(this.currentUser).then(
+      (res) => (this.items = res.hourly)
     );
   },
 });

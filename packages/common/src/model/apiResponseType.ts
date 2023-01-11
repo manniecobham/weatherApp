@@ -1,14 +1,11 @@
 export class WeatherApiResponse {
-    current_weather!: CurrentResponse;
-    daily!: DailyResponse;
-    hourly!: HourlyResponse;
+    current_weather?: CurrentResponse;
+    daily?: DailyResponse;
+    hourly?: HourlyResponse;
     hourly_units?: HourlyResponseUnit;
     daily_units?: DailyResponseUnit;
 }
 
-export class MyWeatherApiResponse {
-    current!: any
-}
 
 export class CurrentResponse {
     temperature!: number;

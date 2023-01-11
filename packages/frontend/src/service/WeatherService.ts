@@ -4,7 +4,7 @@ import {
   parseHourlyWeather,
 } from "../helper/weatherhelpers";
 import axios from "axios";
-import { User } from "weatherapp-common/src/userdataType";
+import { User } from "weatherapp-common/src/model/userdataType";
 
 const weatherURL =
   "https://api.open-meteo.com/v1/forecast?&hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true";
@@ -36,6 +36,18 @@ class WeatherService {
           hourly: parseHourlyWeather(data),
         };
       });
+  }
+
+  static getLocalWeather(currentUser: User) {
+    return axios
+      .get("http://localhost:4001/api/home", {
+        params: {
+          latitude: currentUser.latitude,
+          longitude: currentUser.longitude,
+          timezone: currentUser.timezone,
+        },
+      })
+      .then((res) => console.log(res));
   }
 }
 
