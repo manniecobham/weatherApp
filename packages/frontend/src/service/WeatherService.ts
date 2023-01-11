@@ -29,7 +29,7 @@ class WeatherService {
         },
       })
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         return {
           current: parseCurrentWeather(data),
           daily: parseDailyWeather(data),

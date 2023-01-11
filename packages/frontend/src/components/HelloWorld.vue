@@ -8,8 +8,10 @@
             <v-row no-gutters dense>
               <v-col no-gutters class="align-center" dense>
                 <div>
-                  <v-icon x-large>mdi-cloud</v-icon>
-                  <span>31&deg;C</span>
+                  <!-- <v-icon x-large
+                    >mdi-{{ ICON_MAP.get(currentTemp.weatherCode) }}</v-icon
+                  > -->
+                  <span>{{ currentTemp.temperature }}&deg;C</span>
                 </div>
                 <v-divider vertical />
               </v-col>
@@ -62,10 +64,16 @@
         <v-divider />
         <v-list-item>
           <v-list-item-content>
-            <v-row no-gutters class="pa-2">
-              <!-- Remember to turn to table -->
-              <v-data-table :items="items" :headers="headers"></v-data-table>
-            </v-row>
+            <!-- <v-row no-gutters class="pa-2"> -->
+            <!-- Remember to turn to table -->
+            <v-data-table
+              :items="items"
+              :headers="headers"
+              hide-default-header
+              hide-default-footer
+            >
+            </v-data-table>
+            <!-- </v-row> -->
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
@@ -79,7 +87,13 @@
 import Vue from "vue";
 import moment from "moment";
 import WeatherService from "../service/WeatherService";
-import { MyHourlyWeather } from "weatherapp-common/src/model/myResponseType";
+// import { MyHourlyWeather } from "weatherapp-common/src/model/myResponseType";
+import {
+  MyCurrentWeather,
+  MyHourlyWeather,
+  MyWeatherList,
+} from "weatherapp-common/src/model/myResponseType";
+import { ICON_MAP } from "../helper/weatherhelpers";
 import {
   parseCurrentWeather,
   parseDailyWeather,
@@ -91,6 +105,7 @@ export default Vue.extend({
 
   data: () => ({
     myData: "",
+    currentTemp: {} as MyCurrentWeather,
     todayValues: [
       { label: "High", value: "20", unit: "°C" },
       { label: "FL High", value: "20", unit: "°C" },
@@ -118,7 +133,19 @@ export default Vue.extend({
       return moment.weekdays();
     },
     headers() {
-      return [{ text: "feelsLiike", value: "feelsLike" }];
+      return [
+        { text: "feelsLike", value: "feelsLike" },
+        { text: "", value: "precip" },
+        { text: "", value: "temperature" },
+        {
+          text: "",
+          value: "time",
+          format: (x: string) => moment(x).format("HH:mm"),
+        },
+        { text: "", value: "weatherCode" },
+        { text: "", value: "precip" },
+        { text: "", value: "windSpeed" },
+      ];
     },
   },
   mounted() {
@@ -126,8 +153,16 @@ export default Vue.extend({
     //   console.log(res)
     // );
     WeatherService.getCurrentWeatherDetail(this.currentUser).then(
-      (res) => (this.items = res.hourly)
+      (res: MyWeatherList) => {
+        this.currentTemp = res.current ?? {};
+        this.items = res.hourly;
+      }
     );
+  },
+  methods: {
+    getIcon(code?: number): string {
+      return ICON_MAP.get(Number(code));
+    },
   },
 });
 </script>

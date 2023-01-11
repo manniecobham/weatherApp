@@ -57,3 +57,22 @@ export function parseHourlyWeather({
     })
     .filter(({ time }) => moment(time) >= moment(current_weather?.time));
 }
+
+export const ICON_MAP = new Map();
+
+iconMapping([0, 1], "weather-sunny");
+iconMapping([2], "weather-sunset-up");
+iconMapping([3], "cloud");
+iconMapping([45, 48], "smog");
+iconMapping(
+  [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82],
+  "weather-pouring"
+);
+iconMapping([71, 73, 75, 77, 85, 86], "snowflakes");
+iconMapping([895, 96, 99], "weather-lightning-rainy");
+
+function iconMapping(values: number[], icon: string) {
+  values.forEach((value) => {
+    ICON_MAP.set(value, icon);
+  });
+}
